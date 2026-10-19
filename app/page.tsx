@@ -5,6 +5,13 @@ import Reveal from "@/components/Reveal";
 import Tilt from "@/components/Tilt";
 import SplitText from "@/components/SplitText";
 import Faq from "@/components/Faq";
+import JsonLd from "@/components/JsonLd";
+import { faqPageJsonLd } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /* ------------------------------------------------------------------ */
 /*  Content (honest, editable placeholders — no invented stats)         */
@@ -42,6 +49,7 @@ const pricing = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqPageJsonLd()} />
       {/* ------------------------------------------------------------ HERO */}
       <section className="hero">
         <div className="hero-copy">

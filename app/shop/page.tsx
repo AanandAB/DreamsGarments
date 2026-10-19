@@ -3,8 +3,17 @@ import Image from "next/image";
 import { ArrowUpRight, SlidersHorizontal } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/format";
+import JsonLd from "@/components/JsonLd";
+import { productListJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = {
+  title: "Flags, Toranams & Custom Merchandise",
+  description:
+    "Browse flags, toranams, volunteer wear, bags and custom event merchandise made in Kannur, Kerala — with prices, bulk MOQ and instant quotes.",
+  alternates: { canonical: "/shop" },
+};
 
 // Fallback shown only if the database isn't reachable yet.
 const fallback = [
@@ -26,8 +35,10 @@ export default async function Shop() {
   } catch {}
 
   return (
-    <section className="page-shell">
-      <div className="page-intro">
+    <>
+      <JsonLd data={productListJsonLd(products)} />
+      <section className="page-shell">
+        <div className="page-intro">
         <span className="eyebrow">THE COLLECTION / 01</span>
         <h1>
           Made for your
@@ -84,6 +95,7 @@ export default async function Shop() {
         <span>Need a custom size, print or quantity?</span>
         <Link className="text-link" href="/bulk-quote">Start a custom order <ArrowUpRight size={16} /></Link>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

@@ -5,18 +5,41 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import BackToTop from "@/components/BackToTop";
+import JsonLd from "@/components/JsonLd";
+import {
+  site,
+  organizationJsonLd,
+  localBusinessJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 import { MotionConfig } from "framer-motion";
+
+const homeTitle =
+  "Flags, Toranams & Custom Event Merchandise in Kannur | Dreams Garments";
 
 export const metadata: Metadata = {
   title: {
-    default: "Dreams Garments Flag Centre | Flags, Eventwear & Custom Orders",
+    default: homeTitle,
     template: "%s | Dreams Garments",
   },
-  description:
-    "Flags, toranams, volunteer uniforms and custom event merchandise, made in Kuthuparamba, Kannur, Kerala. Shop retail or request a bulk quote.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ),
+  description: site.description,
+  metadataBase: new URL(site.url),
+  applicationName: site.name,
+  icons: { icon: "/favicon.svg" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: site.name,
+    title: homeTitle,
+    description: site.description,
+    locale: "en_IN",
+    images: [{ url: "/images/flag1.jpeg", alt: site.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Flags, Toranams & Custom Event Merchandise in Kannur",
+    description: site.description,
+  },
   robots: { index: true, follow: true },
 };
 
@@ -28,6 +51,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={localBusinessJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <MotionConfig reducedMotion="user">
           <SmoothScroll>
             <div className="announcement">
